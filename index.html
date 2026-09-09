@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="/assets/scansitplay-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0d211c;
@@ -75,25 +75,50 @@
   .btn.ghost { color: var(--ink); }
   .stores { font-size: 14px; color: var(--ink-mute); }
 
-  /* Live board: the real attract loop from a running league, framed 16:9.
-     The whole panel is one link; the iframe itself never receives the click. */
-  .board { display: block; text-decoration: none; color: inherit; }
-  .board .frame {
-    position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden;
-    border: 1px solid var(--line); background: #08120f;
+  /* Attract stage: a 1920x1080 "TV" scaled to the panel; the whole panel is a link. */
+  .board { display: block; text-decoration: none; color: inherit; cursor: pointer; }
+  #attract {
+    position: relative; overflow: hidden; border-radius: 18px; width: 100%;
+    border: 1px solid var(--line); background: radial-gradient(ellipse at 50% 40%, #16342a 0%, #0b1f19 55%, #060d0b 100%);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(200, 122, 51, 0.15);
   }
-  .board iframe {
-    position: absolute; inset: 0; width: 1920px; height: 1080px; border: 0; pointer-events: none;
-    transform-origin: 0 0; transform: scale(var(--s, 0.25));
-  }
-  .board .hit { position: absolute; inset: 0; }
-  .board .cap {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-    margin-top: 10px; font-size: 14px; color: var(--ink-mute);
-  }
+  .board:hover #attract { box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px var(--accent); }
+  #attract .stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; font-family: "Oswald", "Arial Narrow", Impact, sans-serif; color: #fff; }
+  #attract .suit { position: absolute; line-height: 1; pointer-events: none; }
+  @keyframes iaDrift { 0% { transform: translate(0,0) rotate(-8deg); } 50% { transform: translate(70px,-110px) rotate(10deg); } 100% { transform: translate(0,0) rotate(-8deg); } }
+  #attract .slides { position: absolute; inset: 0; }
+  #attract .slide { position: absolute; inset: 0; opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
+  #attract .slide.in { opacity: 1; transform: none; }
+  #attract .center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  #attract .pad { padding: 0 10%; }
+  #attract .league-line { font-size: 36px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 26px; }
+  #attract .headline { font-size: 116px; font-weight: 700; line-height: 1.02; text-transform: uppercase; text-shadow: 0 6px 40px rgba(231,182,75,.3); }
+  #attract .sub { margin-top: 26px; font-size: 44px; font-weight: 600; color: #e7b64b; letter-spacing: .12em; text-transform: uppercase; }
+  #attract .ssp { margin-top: 34px; font-size: 34px; letter-spacing: .5em; color: rgba(255,255,255,.45); text-transform: uppercase; }
+  #attract .gold { font-size: 44px; letter-spacing: .35em; color: #e7b64b; text-transform: uppercase; font-weight: 600; margin-bottom: 44px; }
+  #attract .period { font-size: 30px; letter-spacing: .28em; color: rgba(255,255,255,.5); text-transform: uppercase; margin-bottom: 40px; }
+  #attract .list { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 1150px; }
+  #attract .list.narrow { max-width: 1000px; gap: 12px; }
+  #attract .row { display: flex; align-items: baseline; justify-content: space-between; background: rgba(255,255,255,.045); border-left: 4px solid rgba(231,182,75,.7); padding: 16px 30px; border-radius: 6px; }
+  #attract .list.narrow .row { border-left-color: rgba(231,182,75,.35); padding: 14px 28px; }
+  #attract .list.narrow .row.lead { border-left-color: #e7b64b; }
+  #attract .list.narrow .row.lead .name { color: #e7b64b; }
+  #attract .name { font-size: 46px; font-weight: 700; }
+  #attract .list.narrow .name { font-size: 42px; }
+  #attract .cup { margin-right: 20px; }
+  #attract .pos { color: #e7b64b; margin-right: 22px; }
+  #attract .meta { font-size: 30px; font-weight: 500; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .08em; }
+  #attract .pts { font-size: 38px; font-weight: 600; color: rgba(255,255,255,.75); font-variant-numeric: tabular-nums; }
+  #attract .leader { margin-top: 40px; font-size: 32px; letter-spacing: .12em; color: #e7b64b; text-transform: uppercase; font-weight: 600; }
+  #attract .foot { margin-top: 44px; font-size: 30px; letter-spacing: .3em; color: rgba(255,255,255,.4); text-transform: uppercase; }
+  #attract .join { display: flex; align-items: center; justify-content: center; gap: 110px; }
+  #attract .big { font-size: 150px; font-weight: 700; line-height: 1.02; text-transform: uppercase; text-align: left; }
+  #attract .gold-text { color: #e7b64b; }
+  #attract .join-copy { max-width: 720px; text-align: left; }
+  #attract .join-h { font-size: 44px; font-weight: 500; color: rgba(255,255,255,.75); line-height: 1.25; }
+  #attract .join-s { margin-top: 26px; font-size: 40px; color: #e7b64b; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+  .board .cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 10px; font-size: 14px; color: var(--ink-mute); }
   .board .cap b { color: var(--ink-soft); font-weight: 600; }
-  .board:hover .frame { box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px var(--accent); }
 
   section { padding: 40px 0; border-top: 1px solid var(--line); }
   section h2 { font-size: 15px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin: 0 0 22px; font-weight: 600; }
@@ -152,10 +177,7 @@
         <p class="stores" style="margin-top:18px">Player app coming to the App Store and Google Play.</p>
       </div>
       <a class="board" id="board" href="https://app.scansitplay.com/" title="Open the Scan Sit Play app">
-        <div class="frame">
-          <iframe id="boardFrame" src="https://app.blapoker.com/kiosk/attract?embed=1" title="Live league board" loading="lazy" tabindex="-1"></iframe>
-          <span class="hit"></span>
-        </div>
+        <div id="attract"><div class="stage"><div class="slides"></div></div></div>
         <div class="cap"><span><b>Live</b> from the Brainerd Lakes Area Poker League</span><span>Open the app →</span></div>
       </a>
     </section>
@@ -214,14 +236,8 @@
   </footer>
 
 </div>
-<script>
-  // Scale the 1920x1080 board to whatever width the panel has.
-  (function () {
-    var frame = document.querySelector('.board .frame');
-    if (!frame) return;
-    function fit() { frame.style.setProperty('--s', (frame.clientWidth / 1920).toFixed(4)); }
-    fit(); window.addEventListener('resize', fit);
-  })();
-</script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="/attract.js" defer></script>
 </body>
 </html>
