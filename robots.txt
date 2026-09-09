@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://scansitplay.com/sitemap.xml

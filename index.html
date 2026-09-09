@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scan Sit Play — Game night, run by the app</title>
+<meta name="description" content="Scan Sit Play runs game night for bar poker leagues: QR check-in, automatic seating, a live tournament clock on the venue's TVs, standings and player rewards.">
+<link rel="canonical" href="https://scansitplay.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Scan Sit Play">
+<meta property="og:title" content="Scan Sit Play — Game night, run by the app">
+<meta property="og:description" content="QR check-in, automatic seating, a live tournament clock on the TV, standings and rewards for bar poker leagues.">
+<meta property="og:image" content="https://scansitplay.com/assets/scansitplay-logo.png">
+<meta property="og:url" content="https://scansitplay.com/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0d211c">
+<link rel="icon" type="image/png" href="/assets/scansitplay-logo.png">
+<link rel="apple-touch-icon" href="/assets/scansitplay-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d211c;
+    --bg-deep: #08120f;
+    --bg-lift: #123a2e;
+    --ink: #f2efe8;
+    --ink-soft: rgba(242, 239, 232, 0.72);
+    --ink-mute: rgba(242, 239, 232, 0.5);
+    --accent: #c87a33;
+    --line: rgba(242, 239, 232, 0.12);
+    --card: rgba(255, 255, 255, 0.04);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: radial-gradient(ellipse at 50% 0%, var(--bg-lift) 0%, var(--bg) 45%, var(--bg-deep) 100%) fixed;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ink); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 22px 0;
+  }
+  .wordmark { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .wordmark img { width: 44px; height: 44px; display: block; }
+  .wordmark span {
+    font-size: 15px; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .wordmark .dot { color: var(--accent); margin: 0 0.35em; letter-spacing: 0; }
+  nav.links { display: flex; gap: 22px; font-size: 15px; }
+  nav.links a { color: var(--ink-soft); text-decoration: none; }
+  nav.links a:hover { color: var(--ink); }
+
+  .hero { padding: 72px 0 56px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 64px); line-height: 1.02; margin: 0 0 18px; font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.lede { font-size: 20px; color: var(--ink-soft); margin: 0 0 28px; max-width: 34em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-block; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--line);
+  }
+  .btn.primary { background: var(--accent); color: #1a120a; border-color: var(--accent); }
+  .btn.ghost { color: var(--ink); }
+  .stores { font-size: 14px; color: var(--ink-mute); }
+
+  .hero-art {
+    aspect-ratio: 1 / 1; border-radius: 28px; display: grid; place-items: center;
+    background: radial-gradient(circle at 50% 45%, rgba(200, 122, 51, 0.16) 0%, rgba(200, 122, 51, 0) 60%);
+  }
+  .hero-art img { width: min(72%, 320px); height: auto; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45)); }
+
+  section { padding: 40px 0; border-top: 1px solid var(--line); }
+  section h2 { font-size: 15px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin: 0 0 22px; font-weight: 600; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .step .n { font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-mute); }
+  .step h3 { margin: 6px 0 8px; font-size: 24px; }
+  .step p { margin: 0; color: var(--ink-soft); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px; }
+  .grid2 h3 { font-size: 19px; margin: 0 0 6px; }
+  .grid2 p { margin: 0; color: var(--ink-soft); }
+
+  .league { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .league p { margin: 0; color: var(--ink-soft); }
+  .league a.btn { white-space: nowrap; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 14px; color: var(--ink-mute); }
+  footer .row { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: space-between; align-items: center; }
+  footer a { color: var(--ink-mute); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+  footer .legal { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; }
+    .hero-art { order: -1; max-width: 240px; margin: 0 auto; }
+    .steps, .grid2 { grid-template-columns: 1fr; }
+    nav.links { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="wordmark" href="/">
+      <img src="/assets/scansitplay-logo.png" alt="Scan Sit Play">
+      <span>Scan<span class="dot">·</span>Sit<span class="dot">·</span>Play</span>
+    </a>
+    <nav class="links">
+      <a href="#how">How it works</a>
+      <a href="#leagues">For leagues</a>
+      <a href="mailto:support@fouralba.com">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" style="border-top:0">
+      <div>
+        <h1>Game night,<br><em>run by the app.</em></h1>
+        <p class="lede">Scan Sit Play runs bar poker leagues: players check in with a QR code, the app seats them, the tournament clock and standings go up on the venue's TVs, and season points and rewards take care of themselves.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:support@fouralba.com?subject=Scan%20Sit%20Play">Talk to us</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+        <p class="stores" style="margin-top:18px">Player app coming to the App Store and Google Play.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img src="/assets/scansitplay-logo.png" alt="">
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="n">01</div>
+          <h3>Scan</h3>
+          <p>Players check in at the door by scanning their QR code. No sign-up sheets, no name-calling, no double entries.</p>
+        </div>
+        <div class="step">
+          <div class="n">02</div>
+          <h3>Sit</h3>
+          <p>The app assigns seats, balances tables as the field shrinks, and sends every player straight to their chair.</p>
+        </div>
+        <div class="step">
+          <div class="n">03</div>
+          <h3>Play</h3>
+          <p>A live tournament clock and player board run on the venue's TVs. Results, season standings and rewards post the moment the night ends.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="leagues">
+      <h2>Built for leagues</h2>
+      <div class="grid2">
+        <div><h3>Check-in that takes seconds</h3><p>Phones, a tablet at the door, or a dedicated scanner station. Guests and dealers are handled too.</p></div>
+        <div><h3>Seating and table balancing</h3><p>Automatic seat assignment, rebuys, busts and final-table consolidation without a clipboard.</p></div>
+        <div><h3>The clock on the big screen</h3><p>Blind levels, breaks, players remaining and chip counts on any TV, with optional announcements.</p></div>
+        <div><h3>Points, standings and rewards</h3><p>Season points, championship qualification and venue reward programs, tracked automatically.</p></div>
+        <div><h3>A venue view</h3><p>Host venues see attendance and reward performance without any player's personal details.</p></div>
+        <div><h3>Your league, your brand</h3><p>League colors and logo on the player screens and TVs. The platform stays behind the scenes.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="league">
+        <p>Running a league and want in? We're onboarding a small number of leagues.</p>
+        <a class="btn ghost" href="mailto:support@fouralba.com?subject=Scan%20Sit%20Play%20for%20my%20league">Get in touch</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="row">
+      <div>© 2026 Four Alba LLC · Scan Sit Play is offered by <a href="https://fouralba.com">Four Alba</a></div>
+      <div class="legal">
+        <a href="https://fouralba.com/privacy/">Privacy</a>
+        <a href="https://fouralba.com/terms/">Terms</a>
+        <a href="https://fouralba.com/account-deletion/">Account deletion</a>
+        <a href="mailto:support@fouralba.com">support@fouralba.com</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
