@@ -73,7 +73,8 @@
   }
   .btn.primary { background: var(--accent); color: #1a120a; border-color: var(--accent); }
   .btn.ghost { color: var(--ink); }
-  .stores { font-size: 14px; color: var(--ink-mute); }
+  .stores { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 14px; color: var(--ink-mute); }
+  .stores img { display: block; height: 60px; width: auto; }
 
   /* Attract stage: a 1920x1080 "TV" scaled to the panel; the whole panel is a link. */
   .board { display: block; text-decoration: none; color: inherit; cursor: pointer; }
@@ -177,7 +178,10 @@
           <a class="btn primary" href="mailto:support@fouralba.com?subject=Scan%20Sit%20Play">Talk to us</a>
           <a class="btn ghost" href="#how">See how it works</a>
         </div>
-        <p class="stores" style="margin-top:18px">Player app coming to the App Store and Google Play.</p>
+        <div class="stores" style="margin-top:18px">
+          <a href="https://play.google.com/store/apps/details?id=com.scansitplay.app" target="_blank" rel="noopener" title="Get Scan Sit Play on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" height="60"></a>
+          <span>App Store: coming soon.</span>
+        </div>
       </div>
       <a class="board" id="board" href="https://app.scansitplay.com/" title="Open the Scan Sit Play app">
         <div id="attract"><div class="stage"><div class="slides"></div></div></div>
