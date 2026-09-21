@@ -75,6 +75,7 @@
   .btn.ghost { color: var(--ink); }
   .stores { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 14px; color: var(--ink-mute); }
   .stores img { display: block; height: 60px; width: auto; }
+  .stores img[src$="app-store-badge.svg"] { height: 41px; margin: 0 4px; }
 
   /* Attract stage: a 1920x1080 "TV" scaled to the panel; the whole panel is a link. */
   .board { display: block; text-decoration: none; color: inherit; cursor: pointer; }
@@ -180,7 +181,7 @@
         </div>
         <div class="stores" style="margin-top:18px">
           <a href="https://play.google.com/store/apps/details?id=com.scansitplay.app" target="_blank" rel="noopener" title="Get Scan Sit Play on Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" height="60"></a>
-          <span>App Store: coming soon.</span>
+          <a href="https://apps.apple.com/us/app/scan-sit-play/id6810015252" target="_blank" rel="noopener" title="Download Scan Sit Play on the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" height="40"></a>
         </div>
       </div>
       <a class="board" id="board" href="https://app.scansitplay.com/" title="Open the Scan Sit Play app">
